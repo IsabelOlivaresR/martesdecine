@@ -48,18 +48,44 @@
     async function cargarPeliculas() {
       list.innerHTML = "<li class='list-group-item'>Cargando...</li>";
       try {
-     const res = await fetch(endpoint);
-			const data = await res.json(); // ahora sí funciona
-        list.innerHTML = '';
-        data.slice(1).reverse().forEach(p => {
-          const li = document.createElement('li');
-          li.className = 'list-group-item d-flex justify-content-between align-items-center';
-          li.innerHTML = `
-            <span><strong>${p.Película}</strong> — ⭐ ${p.Puntuación}</span>
-            <small class="text-muted">${new Date(p.Fecha).toLocaleDateString()}</small>
-          `;
-          list.appendChild(li);
-        });
+    	const res = await fetch(endpoint);
+			const data = await res.json();
+
+			list.innerHTML = '';
+
+			let rows = [];
+
+			// Si Google devuelve { data: [...] }
+			if (Array.isArray(data.data)) {
+				rows = data.data;
+			}
+			// Si Google devuelve directamente el array
+			else if (Array.isArray(data)) {
+				rows = data;
+			}
+
+			// Si no hay datos válidos
+			if (!rows.length) {
+				list.innerHTML = "<li class='list-group-item text-muted'>No hay películas guardadas</li>";
+				return;
+			}
+
+			// Extraer los encabezados y recorrer las filas
+			const headers = rows[0];
+			rows.slice(1).reverse().forEach(row => {
+				const pelicula = row[0];
+				const puntuacion = row[1];
+				const fecha = row[2];
+
+				const li = document.createElement('li');
+				li.className = 'list-group-item d-flex justify-content-between align-items-center';
+				li.innerHTML = `
+					<span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
+					<small class="text-muted">${new Date(fecha).toLocaleDateString()}</small>
+				`;
+				list.appendChild(li);
+			});
+
       } catch (err) {
         list.innerHTML = "<li class='list-group-item text-danger'>⚠️ No se pudieron cargar las películas</li>";
         console.error(err);
