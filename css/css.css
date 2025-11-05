@@ -53,6 +53,11 @@
 	border-bottom: none;
   color:#fff9ed;
 }
+.table-responsive {
+  display: block;
+  width: 100%;
+  font-size:13px
+}
 
 #footer a { color: #ffffff }
 #footer a:hover { color: #ffffff }
