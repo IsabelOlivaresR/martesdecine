@@ -50,6 +50,7 @@
       try {
     	const res = await fetch(endpoint);
 			const data = await res.json();
+				console.log("🔎 Datos recibidos:", data);
 
 			list.innerHTML = '';
 
