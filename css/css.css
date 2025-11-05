@@ -45,9 +45,10 @@
 		background-color:#f2ece1;border:none
 }
 .table-primary {
-	background-color:#afa5bf
+	background-color:#afa5bf;
+	border-color:#fff9ed;
 }
-table,td,th {border:1px solid #fff9ed}
+.table-bordered td, .table-bordered th {border:1px solid #fff9ed}
 
 #footer a { color: #ffffff }
 #footer a:hover { color: #ffffff }
