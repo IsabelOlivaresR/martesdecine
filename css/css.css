@@ -1,0 +1,43 @@
+
+.barra { border-right: 1px solid #E20A17; padding-top: 0px; padding-bottom: 0px }
+.barra1 { -webkit-border-bottom-right-radius: 20px; -webkit-border-bottom-left-radius: 20px; -moz-border-radius-bottomright: 20px; -moz-border-radius-bottomleft: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; padding-top: 0px; padding-bottom: 0px; margin-right:2px }
+.active { font-weight: 900; }
+.navbar-light .navbar-nav .nav-link { color: #3a9ad5;font-size:16px }
+.navbar-light .navbar-nav .nav-link:hover { color: #3a9ad5; }
+.bg-bco { background-color: #ffffff!important; }
+.bg-gris { background-color: #c8c9ca }
+.bg-rojo { background-color: #e52a1b }
+.bg-azul { background-color: #3a9ad5 }
+.bg-azulo { background-color: #1f5fa6 }
+.bg-morado {background-color:#C489B5;color:#ffffff}
+.bg-historias {background-image: url("../img/bg-testimonios.png");background-repeat: no-repeat;background-position: top center;background-size:contain}
+.bg-boton { background-color: #C489B5;color:#ffffff; border:none;padding:13px 25px 8px 25px;display: inline-block}
+.bg-boton:hover { background-color: #C489B5;color:#ffffff; border:none }
+.fs12 { font-size: 12px; line-height: 15px }
+.fs14 { font-size: 14px; line-height: 17px  }
+.fs16 { font-size: 15px; line-height: 19px  }
+.fs18 { font-size: 18px; line-height: 22px  }
+.fs20 { font-size: 20px; line-height: 23px  }
+.fs24 { font-size: 24px; line-height: 27px  }
+.fs30 { font-size: 30px; line-height: 33px  }
+.fs36 { font-size: 36px; line-height: 39px  }
+.rojo { color: #e52a1b }
+.negro { color: #000000 }
+.morado {color:#C489B5}
+.bco { color: #ffffff }
+.azul {color:#3a9ad5}
+.azulo { color: #1f5fa6 }
+.griso { color: #6d6e71 }
+
+
+#footer a { color: #ffffff }
+#footer a:hover { color: #ffffff }
+
+ @media only screen and (max-width: 900px) {
+  .no-break {
+    display:none
+  }
+}
+ @media only screen and (max-width: 500px) {
+
+}
