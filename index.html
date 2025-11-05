@@ -68,13 +68,14 @@
         data.slice(1).reverse().forEach(p => {
           const pelicula = p.Película || "Sin título";
           const puntuacion = p.Puntuación || "?";
+					const usuario = p.Usuario || "No user";
           const fecha = p.Fecha ? new Date(p.Fecha).toLocaleDateString() : "";
 
           const li = document.createElement('li');
           li.className = 'list-group-item d-flex justify-content-between align-items-center';
           li.innerHTML = `
             <span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
-            <small class="text-muted">${fecha}</small>
+            <small class="text-muted">${usuario} ${fecha}</small>
           `;
           list.appendChild(li);
         });
