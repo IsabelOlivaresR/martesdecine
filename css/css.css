@@ -41,6 +41,9 @@
   font-weight: 400;
   font-style: normal;
 }
+.list-group-item {
+		background-color:#f2ece1;border:none
+}
 
 #footer a { color: #ffffff }
 #footer a:hover { color: #ffffff }
