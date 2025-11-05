@@ -11,8 +11,8 @@
 .bg-azulo { background-color: #1f5fa6 }
 .bg-morado {background-color:#C489B5;color:#ffffff}
 .bg-historias {background-image: url("../img/bg-testimonios.png");background-repeat: no-repeat;background-position: top center;background-size:contain}
-.bg-boton { background-color: #8a64b9;color:#fff9ed ; border:none;border-radius:25px}
-.bg-boton:hover { background-color: #8a64b9;color:#fff9ed ; border:none }
+.bg-boton { background-color: #afa5bf;color:#fff9ed ; border:none;border-radius:25px}
+.bg-boton:hover { background-color: #afa5bf;color:#fff9ed ; border:none }
 .fs12 { font-size: 12px; line-height: 15px }
 .fs14 { font-size: 14px; line-height: 17px  }
 .fs16 { font-size: 15px; line-height: 19px  }
