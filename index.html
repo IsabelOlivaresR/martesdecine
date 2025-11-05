@@ -16,30 +16,30 @@
 <script src="js/jquery-3.4.1.min.js"></script> 
 <script src="js/bootstrap.min.js"></script>
 </head>
-
 <body class="bg-light p-4">
-<div class="container">
-	<h1 class="text-center mb-4">🎬 Mis Películas del Mes</h1>
-	
-	<!-- Formulario -->
-	<form id="movieForm" class="card p-3 shadow-sm mb-4">
-		<div class="mb-3">
-			<label for="movieName" class="form-label">Película</label>
-			<input type="text" id="movieName" class="form-control" required>
-		</div>
-		<div class="mb-3">
-			<label for="movieRating" class="form-label">Puntuación (1-10)</label>
-			<input type="number" id="movieRating" class="form-control" min="1" max="10" required>
-		</div>
-		<button class="btn btn-primary w-100" type="submit">Guardar</button>
-	</form>
-	<h3>📋 Lista de Películas</h3>
-	<ul id="movieList" class="list-group">
-	</ul>
-</div>
-<script>
-    // 👉 Reemplaza con la URL de tu Apps Script (la que termina en /exec)
-		const endpoint = "/.netlify/functions/proxy";
+  <div class="container">
+    <h1 class="text-center mb-4">🎬 Mis Películas del Mes</h1>
+
+    <!-- Formulario -->
+    <form id="movieForm" class="card p-3 shadow-sm mb-4">
+      <div class="mb-3">
+        <label for="movieName" class="form-label">Película</label>
+        <input type="text" id="movieName" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="movieRating" class="form-label">Puntuación (1-10)</label>
+        <input type="number" id="movieRating" class="form-control" min="1" max="10" required>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Guardar</button>
+    </form>
+
+    <h3>📋 Lista de Películas</h3>
+    <ul id="movieList" class="list-group"></ul>
+  </div>
+
+  <script>
+    // 👉 Tu endpoint de Netlify (función proxy)
+    const endpoint = "/.netlify/functions/proxy";
 
     const form = document.getElementById('movieForm');
     const list = document.getElementById('movieList');
@@ -47,45 +47,34 @@
     // 🔹 Cargar películas desde Google Sheets
     async function cargarPeliculas() {
       list.innerHTML = "<li class='list-group-item'>Cargando...</li>";
+
       try {
-    	const res = await fetch(endpoint);
-			const data = await res.json();
-				console.log("🔎 Datos recibidos:", data);
+        const res = await fetch(endpoint);
+        const result = await res.json();
+        console.log("🔎 Datos recibidos:", result);
 
-			list.innerHTML = '';
+        const data = result.data || []; // accede al array real dentro del objeto
+        list.innerHTML = '';
 
-			let rows = [];
+        if (!Array.isArray(data) || !data.length) {
+          list.innerHTML = "<li class='list-group-item text-muted'>No hay películas guardadas</li>";
+          return;
+        }
 
-			// Si Google devuelve { data: [...] }
-			if (Array.isArray(data.data)) {
-				rows = data.data;
-			}
-			// Si Google devuelve directamente el array
-			else if (Array.isArray(data)) {
-				rows = data;
-			}
+        // Mostrar las películas en orden inverso (últimas primero)
+        data.reverse().forEach(p => {
+          const pelicula = p.Película || "Sin título";
+          const puntuacion = p.Puntuación || "?";
+          const fecha = p.Fecha ? new Date(p.Fecha).toLocaleDateString() : "";
 
-			// Si no hay datos válidos
-			if (!rows.length) {
-				list.innerHTML = "<li class='list-group-item text-muted'>No hay películas guardadas</li>";
-				return;
-			}
-
-			// Extraer los encabezados y recorrer las filas
-			const headers = rows[0];
-			rows.slice(1).reverse().forEach(row => {
-				const pelicula = row[0];
-				const puntuacion = row[1];
-				const fecha = row[2];
-
-				const li = document.createElement('li');
-				li.className = 'list-group-item d-flex justify-content-between align-items-center';
-				li.innerHTML = `
-					<span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
-					<small class="text-muted">${new Date(fecha).toLocaleDateString()}</small>
-				`;
-				list.appendChild(li);
-			});
+          const li = document.createElement('li');
+          li.className = 'list-group-item d-flex justify-content-between align-items-center';
+          li.innerHTML = `
+            <span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
+            <small class="text-muted">${fecha}</small>
+          `;
+          list.appendChild(li);
+        });
 
       } catch (err) {
         list.innerHTML = "<li class='list-group-item text-danger'>⚠️ No se pudieron cargar las películas</li>";
@@ -93,19 +82,21 @@
       }
     }
 
-    // 🔹 Guardar nueva película (evita error CORS)
+    // 🔹 Guardar nueva película
     form.addEventListener('submit', async e => {
       e.preventDefault();
-      const pelicula = document.getElementById('movieName').value;
+      const pelicula = document.getElementById('movieName').value.trim();
       const puntuacion = document.getElementById('movieRating').value;
 
+      if (!pelicula) return alert("Por favor escribe un nombre de película.");
+
       try {
-       await fetch(endpoint, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ pelicula, puntuacion })
-});
- 
+        await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pelicula, puntuacion })
+        });
+
         form.reset();
         alert("✅ Película guardada correctamente!");
         await cargarPeliculas();
@@ -115,7 +106,7 @@
       }
     });
 
+    // Inicializar al cargar
     cargarPeliculas();
   </script>
-</body>
-</html>
+</body></html>
