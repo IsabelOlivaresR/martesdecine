@@ -90,6 +90,7 @@
       e.preventDefault();
       const pelicula = document.getElementById('movieName').value.trim();
       const puntuacion = document.getElementById('movieRating').value;
+			const usuario = document.getElementById('movieUser').value.trim(); // 👈 nuevo campo
 
       if (!pelicula) return alert("Por favor escribe un nombre de película.");
 
@@ -97,7 +98,7 @@
         await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pelicula, puntuacion })
+          body: JSON.stringify({ pelicula, puntuacion,usuario })
         });
 
         form.reset();
