@@ -51,7 +51,7 @@
 .table-bordered td, .table-bordered th {border:1px solid #fff9ed}
 .table thead th {
 	border-bottom: none;
-  
+  color:#fff9ed;
 }
 
 #footer a { color: #ffffff }
