@@ -39,9 +39,20 @@
 		</div>
 		<p class="text-center"><button class="btn bg-boton" style="width:150px" type="submit">Guardar</button></p>
 	</form>
-	<h4>🎞️ Lista de Películas</h4>
-	<ul id="movieList" class="list-group card">
-	</ul>
+<h4>📋 Lista de Películas</h4>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered align-middle text-center" id="movieTable">
+    <thead class="table-primary">
+      <tr>
+        <th>🎬 Película</th>
+        <th>⭐ Puntuación</th>
+        <th>👤 Usuario</th>
+        <th>📅 Fecha</th>
+      </tr>
+    </thead>
+    <tbody id="movieList"></tbody>
+  </table>
+</div>
 </div>
 <script>
     // 👉 Tu endpoint de Netlify (función proxy)
@@ -50,44 +61,47 @@
     const form = document.getElementById('movieForm');
     const list = document.getElementById('movieList');
 
-    // 🔹 Cargar películas desde Google Sheets
-    async function cargarPeliculas() {
-      list.innerHTML = "<li class='list-group-item'>Cargando...</li>";
+// 🔹 Cargar películas desde Google Sheets
+async function cargarPeliculas() {
+  const list = document.getElementById('movieList');
+  list.innerHTML = "<tr><td colspan='4'>Cargando...</td></tr>";
 
-      try {
-        const res = await fetch(endpoint);
-        const result = await res.json();
-        console.log("🔎 Datos recibidos:", result);
+  try {
+    const res = await fetch(endpoint);
+    const result = await res.json();
+    console.log("🔎 Datos recibidos:", result);
 
-        const data = result.data || []; // accede al array real dentro del objeto
-        list.innerHTML = '';
+    const data = result.data || [];
+    list.innerHTML = '';
 
-        if (!Array.isArray(data) || !data.length) {
-          list.innerHTML = "<li class='list-group-item text-muted'>No hay películas guardadas</li>";
-          return;
-        }
-
-        // Mostrar las películas en orden inverso (últimas primero)
-        data.slice(1).reverse().forEach(p => {
-          const pelicula = p.Película || "Sin título";
-          const puntuacion = p.Puntuación || "?";
-					const usuario = p.Usuario || "No user";
-          const fecha = p.Fecha ? new Date(p.Fecha).toLocaleDateString() : "";
-
-          const li = document.createElement('li');
-          li.className = 'list-group-item d-flex justify-content-between align-items-center';
-          li.innerHTML = `
-            <span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
-            <small class="text-muted">${usuario} - ${fecha}</small>
-          `;
-          list.appendChild(li);
-        });
-
-      } catch (err) {
-        list.innerHTML = "<li class='list-group-item text-danger'>⚠️ No se pudieron cargar las películas</li>";
-        console.error(err);
-      }
+    if (!Array.isArray(data) || data.length <= 1) {
+      list.innerHTML = "<tr><td colspan='4' class='text-muted'>No hay películas guardadas</td></tr>";
+      return;
     }
+
+    // Mostrar las películas en orden inverso (últimas primero)
+    data.slice(1).reverse().forEach(p => {
+      const pelicula = p.Película || "Sin título";
+      const puntuacion = parseFloat(p.Puntuación || 0).toFixed(2);
+      const usuario = p.Usuario || "Sin usuario";
+      const fecha = p.Fecha ? new Date(p.Fecha).toLocaleDateString() : "";
+
+      const row = `
+        <tr>
+          <td class="text-start">${pelicula}</td>
+          <td>${puntuacion}</td>
+          <td>${usuario}</td>
+          <td>${fecha}</td>
+        </tr>
+      `;
+      list.insertAdjacentHTML('beforeend', row);
+    });
+
+  } catch (err) {
+    list.innerHTML = "<tr><td colspan='4' class='text-danger'>⚠️ No se pudieron cargar las películas</td></tr>";
+    console.error(err);
+  }
+}
 
     // 🔹 Guardar nueva película
     form.addEventListener('submit', async e => {
