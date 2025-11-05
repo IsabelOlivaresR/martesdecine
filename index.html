@@ -11,30 +11,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="Cache-control" content="no-cache">
 <title></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/css.css">
 <script src="js/jquery-3.4.1.min.js"></script> 
 <script src="js/bootstrap.min.js"></script>
 </head>
-<body class="bg-light p-4">
+<body class="bg-body raleway p-4">
 <div class="container">
-	<h1 class="text-center mb-4">🎬 Mis Películas del Mes</h1>
+	<p class="text-center"><img src="img/logo.png" class="res_img" width="200"></p>
 	
 	<!-- Formulario -->
 	<form id="movieForm" class="card p-3 shadow-sm mb-4">
 		<div class="mb-3">
-			<label for="movieName" class="form-label">Película</label>
+			<label for="movieName" class="form-label mb-1">Película</label>
 			<input type="text" id="movieName" class="form-control" required>
 		</div>
 		<div class="mb-3">
-			<label for="movieRating" class="form-label">Puntuación (1-10)</label>
+			<label for="movieRating" class="form-label mb-1">Puntuación (1-10)</label>
 			<input type="number" id="movieRating" class="form-control" min="1" max="10" required>
 		</div>
 		<div class="mb-3">
-			<label for="movieUser" class="form-label">Nombre</label>
+			<label for="movieUser" class="form-label mb-1">Nombre</label>
 			<input type="text" id="movieUser" class="form-control" placeholder="Ej. Laura" required>
 		</div>
-		<button class="btn btn-primary w-100" type="submit">Guardar</button>
+		<p class="text-center"><button class="btn bg-boton" style="width:150px" type="submit">Guardar</button></p>
 	</form>
 	<h3>📋 Lista de Películas</h3>
 	<ul id="movieList" class="list-group">
@@ -75,7 +78,7 @@
           li.className = 'list-group-item d-flex justify-content-between align-items-center';
           li.innerHTML = `
             <span><strong>${pelicula}</strong> — ⭐ ${puntuacion}</span>
-            <small class="text-muted">${usuario} ${fecha}</small>
+            <small class="text-muted">${usuario} - ${fecha}</small>
           `;
           list.appendChild(li);
         });

@@ -5,13 +5,13 @@
 .navbar-light .navbar-nav .nav-link { color: #3a9ad5;font-size:16px }
 .navbar-light .navbar-nav .nav-link:hover { color: #3a9ad5; }
 .bg-bco { background-color: #ffffff!important; }
-.bg-gris { background-color: #c8c9ca }
+.bg-body { background-color: #fff9ed }
 .bg-rojo { background-color: #e52a1b }
 .bg-azul { background-color: #3a9ad5 }
 .bg-azulo { background-color: #1f5fa6 }
 .bg-morado {background-color:#C489B5;color:#ffffff}
 .bg-historias {background-image: url("../img/bg-testimonios.png");background-repeat: no-repeat;background-position: top center;background-size:contain}
-.bg-boton { background-color: #C489B5;color:#ffffff; border:none;padding:13px 25px 8px 25px;display: inline-block}
+.bg-boton { background-color: #8a64b9;color:#ffffff; border:none;border-radius:25px}
 .bg-boton:hover { background-color: #C489B5;color:#ffffff; border:none }
 .fs12 { font-size: 12px; line-height: 15px }
 .fs14 { font-size: 14px; line-height: 17px  }
@@ -28,7 +28,19 @@
 .azul {color:#3a9ad5}
 .azulo { color: #1f5fa6 }
 .griso { color: #6d6e71 }
-
+.card {
+	background-color:#f2ece1;border:none
+}
+.form-control {
+	border:none;
+	border-radius:25px;
+}
+.raleway {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
 
 #footer a { color: #ffffff }
 #footer a:hover { color: #ffffff }
