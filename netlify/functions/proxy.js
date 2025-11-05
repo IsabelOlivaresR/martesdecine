@@ -1,7 +1,7 @@
 // netlify/functions/proxy.js
 
 export async function handler(event) {
-  const scriptUrl = "https://script.google.com/macros/s/AKfycbx0WnFw2iBsX8h2Qyf0wg1JsxgePRfT9PMCuD4jUPXe1CgYEsE9X7m0sMmweMY3_z1t/exec";
+  const scriptUrl = "https://script.google.com/macros/s/AKfycbyV9A5Zfnqez9ZahYzIMjKSIUYNgebpliGGgZuvviRQxmCLcjRfZJTl_KaV2m2MJ6dn/exec";
   const method = event.httpMethod || 'GET';
 
   try {
