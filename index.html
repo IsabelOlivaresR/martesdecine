@@ -62,7 +62,7 @@
         }
 
         // Mostrar las películas en orden inverso (últimas primero)
-        data.reverse().forEach(p => {
+        data.slice(1).reverse().forEach(p => {
           const pelicula = p.Película || "Sin título";
           const puntuacion = p.Puntuación || "?";
           const fecha = p.Fecha ? new Date(p.Fecha).toLocaleDateString() : "";
